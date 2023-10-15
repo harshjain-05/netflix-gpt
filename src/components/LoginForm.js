@@ -3,15 +3,11 @@ import { validateLoginForm } from "../utils/validate";
 import { toast } from "react-toastify";
 import {signInWithEmailAndPassword} from 'firebase/auth'
 import { auth } from "../firebase";
-import { useNavigate } from "react-router-dom";
-
-
-
 
 
 const LoginForm = ({ setIsLoginForm, isLoginForm }) => {
 
-  const navigate=useNavigate()
+ 
   const email = useRef(null);
   const password = useRef(null);
 
@@ -35,7 +31,6 @@ const LoginForm = ({ setIsLoginForm, isLoginForm }) => {
         const userCredentials= await  signInWithEmailAndPassword(auth, email.current.value, password.current.value)
         const user=userCredentials.user
         toast.success("user Logged In Successfully")
-        navigate("/browse")
       }
 
       catch(err){
