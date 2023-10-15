@@ -1,19 +1,27 @@
 import { useRef, useState } from "react";
 import { validateLoginForm } from "../utils/validate";
-import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import {signInWithEmailAndPassword} from 'firebase/auth'
+import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
+
+
+
+
 
 const LoginForm = ({ setIsLoginForm, isLoginForm }) => {
+
+  const navigate=useNavigate()
   const email = useRef(null);
   const password = useRef(null);
-  const [popUpDisplay, setPopUpDisplay] = useState(false);
+
   
 
   function toggleForm() {
     setIsLoginForm(!isLoginForm);
   }
 
-  function handleSignInButtonClick() {
+  async function handleSignInButtonClick() {
     const message = validateLoginForm(
       email.current.value,
       password.current.value
@@ -22,12 +30,30 @@ const LoginForm = ({ setIsLoginForm, isLoginForm }) => {
         toast.error(message)
     }
     else{
-      toast.success("User Logged IN  Successfully")
+
+      try{
+        const userCredentials= await  signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+        const user=userCredentials.user
+        toast.success("user Logged In Successfully")
+        navigate("/browse")
+      }
+
+      catch(err){
+
+        if(err.message.includes("auth/invalid")){
+          toast.error("Invalid Login Credentials")
+          return;
+        }
+        toast.error(err.message)
+      }
+
+      
+  
     }
   }
 
   return (
-    <>
+    
       <form
         className="w-3/12 absolute p-12 bg-black my-36 mx-auto right-0 left-0 text-white  rounded-lg bg-opacity-80"
         onSubmit={(e) => {
@@ -48,12 +74,6 @@ const LoginForm = ({ setIsLoginForm, isLoginForm }) => {
           type="password"
           placeholder="Password"
           className="p-3 my-4 w-full  bg-gray-700 rounded-lg outline-none"
-          onMouseEnter={() => {
-            setPopUpDisplay(true);
-          }}
-          onMouseLeave={() => {
-            setPopUpDisplay(false);
-          }}
         />
 
         <button
@@ -72,19 +92,7 @@ const LoginForm = ({ setIsLoginForm, isLoginForm }) => {
         </p>
       </form>
 
-      {popUpDisplay && (
-        <div className="absolute bg-black top-80 right-36 w-3/12 text-center p-5 bg-opacity-80 text-gray-200 rounded-lg ">
-          <p>
-            {" "}
-            Password must be least 8 characters long.  
-          </p>
-          <p>Contains at least one lowercase letter.</p>
-          <p>Contains at least one uppercase letter.</p>
-          <p> Contains at least one digit (number).</p>
-          <p>Contains at least one special character  </p>
-        </div>
-      )}
-    </>
+    
   );
 };
 

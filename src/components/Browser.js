@@ -1,4 +1,11 @@
+import Header from "./Header"
 const Broswer =()=>{
+
+  return(
+    <div>
+        <Header/>
+    </div>
+  )
 
 }
 

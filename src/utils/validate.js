@@ -7,8 +7,6 @@ export const validateLoginForm=(email,password)=>{
 
    if(!isEmail) return("Please Enter a valid Email")
 
-   if(!isPassword) return("Please Enter a valis password")
-
    return null;
 
 }
@@ -26,7 +24,7 @@ export const validateSignUpForm=(name, email,password,confirmPassword)=>{
 
    if(!isEmail) return("Please Enter a valid Email")
 
-   if(!isPassword) return("Please Enter a valis password")
+   if(!isPassword) return("Please Enter a valid password")
 
    if(password!==confirmPassword){
       return("Password and confirmed password doesnt match")

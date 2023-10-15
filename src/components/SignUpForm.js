@@ -1,26 +1,62 @@
 import { useState,useRef } from "react";
 import { validateSignUpForm } from "../utils/validate";
 import { toast } from "react-toastify";
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth } from "../firebase";
+import { useNavigate } from "react-router-dom";
+import { updateProfile } from "firebase/auth";
+import { addUser } from "../utils/userSlice";
+import { useDispatch } from "react-redux";
+
+
+
+
+
+
+
 
 const SignUpForm = ({ setIsLoginForm, isLoginForm }) => {
+  const navigate=useNavigate()
   const email = useRef(null);
   const password = useRef(null);
-  const name=useRef("")
-  const confirmPassword=useRef("")
+  const fullname=useRef(null)
+  const confirmPassword=useRef(null)
+  const dispatch=useDispatch()
   const [popUpDisplay, setPopUpDisplay] = useState(false);
 
   function toggleForm() {
     setIsLoginForm(!isLoginForm);
   }
 
-  function handleSignUpButtonClick(){
+  async function handleSignUpButtonClick(){
     console.log()
-    const message=validateSignUpForm(name.current.value, email.current.value,password.current.value,confirmPassword.current.value)
+    const message=validateSignUpForm(fullname.current.value, email.current.value,password.current.value,confirmPassword.current.value)
     if(message){
       toast.error(message)
     }
     else{
+        try{
+          const userCredentials= await createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+          const user=userCredentials.user
+          await updateProfile(user, {
+            displayName: fullname.current.value
+          })
+          dispatch(addUser({
+            uid: auth.currentUser.uid,
+            email: auth.currentUser.email,
+            name: auth.currentUser.displayName
+          }))
+
           toast.success("User Signed Up successfully")
+          navigate("/browse")
+        }
+
+        catch(error){
+          toast.error(error.message)
+        }
+
+     
+        
     }
   }
 
@@ -36,7 +72,7 @@ const SignUpForm = ({ setIsLoginForm, isLoginForm }) => {
         <input
           type="text"
           placeholder="Full Name"
-          ref={name}
+          ref={fullname}
           className="p-3 my-3 w-full bg-gray-700 rounded-lg outline-none"
         />
 

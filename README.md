@@ -6,7 +6,17 @@
 -Login Form
 -SignUp Form
 -Form Validation
--useRefHook
+-Firebase setup
+-Authenication Using firebase
+-Setup Redux Store and Created Slices
+-Implemented Signout feature
+-Upadted user profile
+
+
+
+
+
+
 
 # Features
 - Login/SignUp
