@@ -1,12 +1,12 @@
 import { useState,useRef } from "react";
-import { validateSignUpForm } from "../utils/validate";
+import { validateSignUpForm } from "../../utils/validate";
 import { toast } from "react-toastify";
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { auth } from "../firebase";
+import { auth } from "../../firebase";
 import { updateProfile } from "firebase/auth";
-import { addUser } from "../utils/userSlice";
+import { addUser } from "../../utils/userSlice";
 import { useDispatch } from "react-redux";
-import { userAvataar } from "../utils/constants";
+import { userAvataar } from "../../utils/constants";
 
 
 const SignUpForm = ({ setIsLoginForm, isLoginForm }) => {

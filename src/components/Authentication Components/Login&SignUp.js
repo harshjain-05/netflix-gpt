@@ -1,8 +1,8 @@
-import Header from "./Header";
+import Header from "../Header";
 import { useState } from "react";
 import LoginForm from "./LoginForm";
 import SignUpForm from "./SignUpForm";
-import { backgroundImage } from "../utils/constants";
+import { backgroundImage } from "../../utils/constants";
 
 
 const LoginAndSignUp = () => {

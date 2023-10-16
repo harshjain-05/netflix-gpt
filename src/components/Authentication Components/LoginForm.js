@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
-import { validateLoginForm } from "../utils/validate";
+import { validateLoginForm } from "../../utils/validate";
 import { toast } from "react-toastify";
 import {signInWithEmailAndPassword} from 'firebase/auth'
-import { auth } from "../firebase";
+import { auth } from "../../firebase";
 
 
 const LoginForm = ({ setIsLoginForm, isLoginForm }) => {

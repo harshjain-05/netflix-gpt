@@ -72,7 +72,7 @@ const Header = () => {
       />
 
       {userDetails && (
-        <div className="flex p-2 border-2 border-yellow-400 gap-2 mt-2 ">
+        <div className="flex p-2  gap-2 mt-2 ">
           <img src={userDetails.profileUrl} className="w-12 h-12" alt="User Avataar"/>
 
           <button className="text-white" onClick={handleLogout}>LogOut</button>

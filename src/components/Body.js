@@ -1,6 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import LoginAndSignUp from "./Login&SignUp";
-import Broswer from "./Browser";
+import LoginAndSignUp from "./Authentication Components/Login&SignUp";
+import Broswer from "./BrowserComponents/Browser";
 
 import { useDispatch } from "react-redux";
 
