@@ -1,13 +1,14 @@
+import { imageurl } from "../../utils/constants";
 
 
-const MovieCard=()=>{
+const MovieCard = ({ posterPath }) => {
 
 
+  return (
+    <div className="w-48 pr-4">
+      <img src={imageurl + posterPath} />
+    </div>
+  );
+};
 
-
-    return (
-
-    )
-}
-
-export default MovieCard
+export default MovieCard;
