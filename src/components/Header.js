@@ -7,6 +7,7 @@ import { removeUser } from "../utils/userSlice";
 import { onAuthStateChanged } from "firebase/auth";
 import { addUser } from "../utils/userSlice";
 import { netflixLogo } from "../utils/constants";
+import { toggleGPTSearchView } from "../utils/gptSlice";
 
 const Header = () => {
 
@@ -59,6 +60,12 @@ const Header = () => {
     });
     
   }
+
+  function handleGPTSearchClick(){
+     dispatch(toggleGPTSearchView())
+     console.log("state changed")
+
+  }
   
   
  
@@ -72,7 +79,11 @@ const Header = () => {
       />
 
       {userDetails && (
-        <div className="flex p-2  gap-2 mt-2 ">
+        <div className="flex p-2  gap-4 mt-2 ">
+
+          <button className="bg-purple-800 text-white py-2 px-4 m-2 rounded-lg font-bold" onClick={handleGPTSearchClick}>GPT Search</button>
+
+
           <img src={userDetails.profileUrl} className="w-12 h-12" alt="User Avataar"/>
 
           <button className="text-white" onClick={handleLogout}>LogOut</button>
